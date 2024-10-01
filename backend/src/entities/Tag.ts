@@ -19,9 +19,6 @@ export class Tag extends BaseEntity {
 	@Column({ length: 7 })
 	color!: string;
 
-	@Column()
-	isComplete!: boolean;
-
 	@ManyToMany(() => Task)
 	@JoinTable()
 	tasks!: Task[];
