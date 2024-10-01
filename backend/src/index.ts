@@ -1,5 +1,6 @@
 import Express from "express";
 import "reflect-metadata";
+import { router } from "./routes/router";
 
 import { dataSource } from "./config/db";
 
@@ -8,9 +9,7 @@ const PORT = 3000;
 
 app.use(Express.json());
 
-app.get("/", (req: Express.Request, res: Express.Response) => {
-	res.send("Hello World!");
-});
+app.use("/api", router);
 
 app.listen(PORT, async () => {
 	await dataSource.initialize();
