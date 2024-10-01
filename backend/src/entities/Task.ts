@@ -27,5 +27,5 @@ export class Task extends BaseEntity {
 
 	@ManyToMany(() => Tag)
 	@JoinTable()
-	tags!: Tag[];
+	tags?: Tag[];
 }
