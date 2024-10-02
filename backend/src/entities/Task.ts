@@ -24,12 +24,16 @@ export class Task extends BaseEntity {
 
 	@Column()
 	@IsDate()
-	createdAt!: Date;
+	createdAt: Date = new Date();
 
 	@Column()
 	isComplete!: boolean;
 
-	@ManyToMany(() => Tag)
+	@ManyToMany(
+		() => Tag,
+		(tag) => tag.tasks,
+		{ cascade: true },
+	)
 	@JoinTable()
 	tags?: Tag[];
 }
