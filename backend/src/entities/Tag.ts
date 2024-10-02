@@ -6,6 +6,7 @@ import {
 	ManyToMany,
 	JoinTable,
 } from "typeorm";
+import { Length } from "class-validator";
 import { Task } from "./Task";
 
 @Entity()
@@ -17,6 +18,7 @@ export class Tag extends BaseEntity {
 	label!: string;
 
 	@Column({ length: 7 })
+	@Length(7, 7, { message: "Color hex code must be 7 character-long" })
 	color!: string;
 
 	@ManyToMany(() => Task)
