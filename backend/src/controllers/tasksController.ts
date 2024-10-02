@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import * as taskServices from "../services/taskServices";
+import * as tasksServices from "../services/tasksServices";
 
 export const getAllTasks = async (
 	req: Request,
@@ -7,7 +7,7 @@ export const getAllTasks = async (
 	next: NextFunction,
 ) => {
 	try {
-		const tasks = await taskServices.getAllTasks();
+		const tasks = await tasksServices.getAllTasks();
 		res.json(tasks);
 	} catch (error) {
 		next(error);
@@ -21,7 +21,7 @@ export const getTaskById = async (
 ) => {
 	try {
 		const taskId = Number(req.params.id);
-		const task = await taskServices.getTaskById(taskId);
+		const task = await tasksServices.getTaskById(taskId);
 		if (task === null) {
 			return res.status(404).json({ message: "Task not found" });
 		}
