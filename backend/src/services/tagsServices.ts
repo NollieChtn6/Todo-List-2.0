@@ -7,9 +7,9 @@ export const getAllTags = async () => {
 	return tags;
 };
 
-export const getTagById = async (id: number) => {
+export const getTagById = async (tagId: number) => {
 	const tag = await Tag.findOne({
-		where: { id },
+		where: { id: tagId },
 		relations: ["tasks"],
 	});
 	return tag;
