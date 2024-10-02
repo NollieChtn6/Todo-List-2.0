@@ -18,7 +18,9 @@ export class Tag extends BaseEntity {
 	label!: string;
 
 	@Column({ length: 7 })
-	@Length(7, 7, { message: "Color hex code must be 7 character-long" })
+	@Matches(/#?([\da-fA-F]{2})([\da-fA-F]{2})([\da-fA-F]{2})/, {
+		message: "Color must be a valid hex code.",
+	})
 	color!: string;
 
 	@ManyToMany(
