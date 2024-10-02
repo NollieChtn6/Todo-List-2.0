@@ -22,11 +22,11 @@ export class Task extends BaseEntity {
 	@Column()
 	description?: string;
 
-	@Column()
+	@Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
 	@IsDate()
 	createdAt: Date = new Date();
 
-	@Column()
+	@Column({ default: false })
 	isComplete!: boolean;
 
 	@ManyToMany(
