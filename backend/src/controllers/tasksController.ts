@@ -73,3 +73,28 @@ export const deleteTag = async (
 		next(err);
 	}
 };
+
+export const updateTask = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const taskId = Number(req.params.id);
+		const { title, description, tags } = req.body;
+
+		const updatedTask = await tasksServices.updateTask(taskId, {
+			title,
+			description,
+			tags,
+		});
+
+		if (!updatedTask) {
+			return res.status(404).json({ message: "Task not found" });
+		}
+
+		res.status(204).json(updatedTask);
+	} catch (err) {
+		next(err);
+	}
+};
