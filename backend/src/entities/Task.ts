@@ -1,46 +1,36 @@
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	PrimaryGeneratedColumn,
-	ManyToMany,
-	JoinTable,
-} from "typeorm";
+import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
-import { Length, IsDate } from "class-validator";
-import { Tag } from "./Tag";
+import { TagSQLiteModel } from "./Tag";
 
-@Entity()
-export class Task extends BaseEntity {
-	@PrimaryGeneratedColumn()
-	id!: number;
+@Entity({ name: "task" })
+export class TaskSQLiteModel extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-	@Column({ length: 200 })
-	@Length(3, 100, { message: "Title should have at least 3 characters." })
-	title!: string;
+  @Column({ length: 200 })
+  title!: string;
 
-	@Column()
-	description?: string;
+  @Column()
+  description?: string;
 
-	@Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
-	@IsDate()
-	createdAt: Date = new Date();
+  @Column({ type: "datetime", default: () => "CURRENT_TIMESTAMP" })
+  createdAt: Date = new Date();
 
-	@Column({ default: false })
-	isComplete!: boolean;
+  @Column({ default: false })
+  isComplete!: boolean;
 
-	// Useful resource on relations: https://orkhan.gitbook.io/typeorm/docs/relations
-	@ManyToMany(() => Tag, { cascade: true })
-	@JoinTable({
-		name: "task_has_tags",
-		joinColumn: {
-			name: "taskId",
-			referencedColumnName: "id",
-		},
-		inverseJoinColumn: {
-			name: "tagId",
-			referencedColumnName: "id",
-		},
-	})
-	tags?: Tag[];
+  // Useful resource on relations: https://orkhan.gitbook.io/typeorm/docs/relations
+  @ManyToMany(() => TagSQLiteModel, { cascade: true })
+  @JoinTable({
+    name: "task_has_tags",
+    joinColumn: {
+      name: "taskId",
+      referencedColumnName: "id",
+    },
+    inverseJoinColumn: {
+      name: "tagId",
+      referencedColumnName: "id",
+    },
+  })
+  tags?: TagSQLiteModel[];
 }
