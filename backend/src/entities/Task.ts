@@ -29,6 +29,7 @@ export class Task extends BaseEntity {
 	@Column({ default: false })
 	isComplete!: boolean;
 
+	// Useful resource on relations: https://orkhan.gitbook.io/typeorm/docs/relations
 	@ManyToMany(() => Tag, { cascade: true })
 	@JoinTable({
 		name: "task_has_tags",
