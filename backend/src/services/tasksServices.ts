@@ -38,3 +38,16 @@ export const createNewTask = async (data: {
 
 	return await Task.save(newTask);
 };
+
+export const deleteTask = async (taskId: number): Promise<Task | null> => {
+	const selectedTask = await Task.findOne({
+		where: { id: taskId },
+	});
+	if (!selectedTask) {
+		console.log("This task does not exist");
+		return null;
+	}
+	console.log("Task to be removed:", selectedTask);
+	return await selectedTask.remove();
+	// return selectedTask;
+};
