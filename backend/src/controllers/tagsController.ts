@@ -30,3 +30,17 @@ export const getTagById = async (
 		next(err);
 	}
 };
+
+export const createNewTag = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const { label, color } = req.body;
+		const newTag = await tagsServices.createNewTag(label, color);
+		return res.status(201).json(newTag);
+	} catch (err) {
+		next(err);
+	}
+};
