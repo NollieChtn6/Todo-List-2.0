@@ -33,7 +33,7 @@ export const deleteTag = async (req: Request, res: Response, next: NextFunction)
 
 export const updateTag = async (req: Request, res: Response, next: NextFunction) => {
   const tagId = Number(req.params.id);
-  const { label, color } = req.body;
+  const { label, color } = tagsSchemas.updateTagSchema.parse(req.body);
 
   const updatedTag = await tagsServices.updateTag(tagId, {
     label,
