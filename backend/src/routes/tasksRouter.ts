@@ -7,4 +7,4 @@ tasksRouter.get("/tasks/:id", tasksController.getTaskById);
 // taskRouter.get("/tasks/:id/tags")
 tasksRouter.post("/tasks/create", tasksController.createNewTask);
 // tasksRouter.put("/tasks/task:id/edit");
-// tasksRouter.delete("/tasks/task:id/delete");
+tasksRouter.delete("/tasks/:id/delete", tasksController.deleteTag);
