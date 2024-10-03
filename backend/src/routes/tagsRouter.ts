@@ -7,4 +7,4 @@ tagsRouter.get("/tags/:id", tagsController.getTagById);
 // tagRouter.get("/tags/id:/tasks")
 tagsRouter.post("/tags/create", tagsController.createNewTag);
 // tagsRouter.put("/tags/tag:id/edit");
-// tagsRouter.delete("/tags/tasg:id/delete");
+tagsRouter.delete("/tags/:id/delete", tagsController.deleteTag);
