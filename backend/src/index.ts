@@ -6,17 +6,16 @@ import Express from "express";
 import "reflect-metadata";
 import { router } from "./routes/router";
 import { dataSource } from "./config/db";
-import { errorHandler } from "./middlewares/errorHandler";
+import { catchValidationErrors } from "./middlewares/errorMiddleware";
 
 const app = Express();
 const PORT = 3000;
 
 app.use(Express.json());
-
+app.use(catchValidationErrors);
 app.use("/api", router);
-app.use(errorHandler);
 
 app.listen(PORT, async () => {
-	await dataSource.initialize();
-	console.log(`App listening on: http://localhost:${PORT}`);
+  await dataSource.initialize();
+  console.log(`App listening on: http://localhost:${PORT}`);
 });
