@@ -6,7 +6,6 @@ export const getAllTags = async () => {
 };
 
 export const getTagById = async (tagId: number) => {
-export const getTagById = async (tagId: number) => {
 	const tag = await Tag.findOne({
 		where: { id: tagId },
 	});
