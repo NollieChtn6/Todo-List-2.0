@@ -38,3 +38,30 @@ export const deleteTag = async (tagId: number): Promise<Tag | null> => {
 	console.log("Tag to be removed:", selectedTag);
 	return await selectedTag.remove();
 };
+
+export const updateTag = async (
+	tagId: number,
+	data: {
+		label?: string;
+		color?: string;
+	},
+): Promise<Tag | null> => {
+	const selectedTag = await Tag.findOne({
+		where: { id: tagId },
+	});
+
+	if (!selectedTag) {
+		console.log("Task not found");
+		return null;
+	}
+
+	if (data.label) {
+		selectedTag.label = data.label;
+	}
+	if (data.color) {
+		selectedTag.color = data.color;
+	}
+	console.log("Tag to be edited:", selectedTag);
+	// return await selectedTag.save();
+	return selectedTag;
+};
