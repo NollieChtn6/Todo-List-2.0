@@ -26,3 +26,15 @@ export const createNewTag = async (
 	}
 	return tag;
 };
+
+export const deleteTag = async (tagId: number): Promise<Tag | null> => {
+	const selectedTag = await Tag.findOne({
+		where: { id: tagId },
+	});
+	if (!selectedTag) {
+		console.log("This tag does not exist");
+		return null;
+	}
+	console.log("Tag to be removed:", selectedTag);
+	return await selectedTag.remove();
+};
