@@ -62,3 +62,27 @@ export const deleteTag = async (
 		next(err);
 	}
 };
+
+export const updateTag = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const tagId = Number(req.params.id);
+		const { label, color } = req.body;
+
+		const updatedTag = await tagsServices.updateTag(tagId, {
+			label,
+			color,
+		});
+
+		if (!updatedTag) {
+			return res.status(404).json({ message: "Tag not found" });
+		}
+
+		res.status(204).json(updatedTag);
+	} catch (err) {
+		next(err);
+	}
+};
