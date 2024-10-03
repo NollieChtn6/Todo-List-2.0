@@ -1,25 +1,13 @@
-import {
-	BaseEntity,
-	Column,
-	Entity,
-	PrimaryGeneratedColumn,
-	ManyToMany,
-	JoinTable,
-} from "typeorm";
-import { Matches } from "class-validator";
-import { Task } from "./Task";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Tag extends BaseEntity {
-	@PrimaryGeneratedColumn()
-	id!: number;
+@Entity({ name: "tag" })
+export class TagSQLiteModel extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-	@Column({ length: 200 })
-	label!: string;
+  @Column({ length: 200 })
+  label!: string;
 
-	@Column({ length: 7 })
-	@Matches(/#?([\da-fA-F]{2})([\da-fA-F]{2})([\da-fA-F]{2})/, {
-		message: "Color must be a valid hex code.",
-	})
-	color!: string;
+  @Column({ length: 7 })
+  color!: string;
 }
