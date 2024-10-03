@@ -30,3 +30,28 @@ export const getTaskById = async (
 		next(err);
 	}
 };
+
+export const createNewTask = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const { title, description, tags } = req.body;
+		const newTask = await tasksServices.createNewTask({
+			title,
+			description,
+			tags: tags || [],
+		});
+		const responseTask = {
+			id: newTask.id,
+			title: newTask.title,
+			description: newTask.description,
+			tags: newTask.tags,
+		};
+
+		res.status(201).json(responseTask);
+	} catch (err) {
+		next(err);
+	}
+};
