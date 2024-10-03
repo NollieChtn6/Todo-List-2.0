@@ -9,8 +9,8 @@ export const getAllTags = async (
 	try {
 		const tasks = await tagsServices.getAllTags();
 		res.json(tasks);
-	} catch (error) {
-		next(error);
+	} catch (err) {
+		next(err);
 	}
 };
 
