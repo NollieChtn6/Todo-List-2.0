@@ -22,7 +22,7 @@ export const getTagById = async (
 	try {
 		const tagId = Number(req.params.id);
 		const tag = await tagsServices.getTagById(tagId);
-		if (tag === null) {
+		if (!tag) {
 			return res.status(404).json({ message: "Tag not found" });
 		}
 		res.json(tag);
@@ -40,6 +40,24 @@ export const createNewTag = async (
 		const { label, color } = req.body;
 		const newTag = await tagsServices.createNewTag(label, color);
 		return res.status(201).json(newTag);
+	} catch (err) {
+		next(err);
+	}
+};
+
+export const deleteTag = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const tagId = Number(req.params.id);
+		const tag = await tagsServices.deleteTag(tagId);
+		if (!tag) {
+			return res.status(404).json({ message: "Tag not found" });
+		}
+		// res.json(tag);
+		res.status(204).send("Tag has successfully been deleted");
 	} catch (err) {
 		next(err);
 	}
