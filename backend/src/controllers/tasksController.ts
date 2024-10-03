@@ -22,7 +22,7 @@ export const getTaskById = async (
 	try {
 		const taskId = Number(req.params.id);
 		const task = await tasksServices.getTaskById(taskId);
-		if (task === null) {
+		if (!task) {
 			return res.status(404).json({ message: "Task not found" });
 		}
 		res.json(task);
@@ -51,6 +51,24 @@ export const createNewTask = async (
 		};
 
 		res.status(201).json(responseTask);
+	} catch (err) {
+		next(err);
+	}
+};
+
+export const deleteTag = async (
+	req: Request,
+	res: Response,
+	next: NextFunction,
+) => {
+	try {
+		const taskId = Number(req.params.id);
+		const task = await tasksServices.deleteTask(taskId);
+		if (!task) {
+			return res.status(404).json({ message: "Task not found" });
+		}
+		// res.json(task);
+		res.status(204).send("Task has successfully been deleted");
 	} catch (err) {
 		next(err);
 	}
