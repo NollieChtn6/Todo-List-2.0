@@ -51,3 +51,40 @@ export const deleteTask = async (taskId: number): Promise<Task | null> => {
 	return await selectedTask.remove();
 	// return selectedTask;
 };
+
+export const updateTask = async (
+	taskId: number,
+	data: {
+		title?: string;
+		description?: string;
+		tags?: { id: number }[];
+	},
+): Promise<Task | null> => {
+	const selectedTask = await Task.findOne({
+		where: { id: taskId },
+		relations: ["tags"],
+	});
+
+	if (!selectedTask) {
+		console.log("Task not found");
+		return null;
+	}
+
+	if (data.title) {
+		selectedTask.title = data.title;
+	}
+	if (data.description) {
+		selectedTask.description = data.description;
+	}
+
+	if (data.tags && data.tags.length > 0) {
+		const tagIds = data.tags.map((tag) => tag.id);
+		const tags = await Tag.findBy({ id: In(tagIds) });
+		selectedTask.tags = tags;
+	} else {
+		selectedTask.tags = [];
+	}
+	console.log("Task to be edited:", selectedTask);
+	return await selectedTask.save();
+	// return selectedTask;
+};
