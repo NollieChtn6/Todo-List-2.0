@@ -29,11 +29,17 @@ export class Task extends BaseEntity {
 	@Column({ default: false })
 	isComplete!: boolean;
 
-	@ManyToMany(
-		() => Tag,
-		(tag) => tag.tasks,
-		{ cascade: true },
-	)
-	@JoinTable()
+	@ManyToMany(() => Tag, { cascade: true })
+	@JoinTable({
+		name: "task_has_tags",
+		joinColumn: {
+			name: "taskId",
+			referencedColumnName: "id",
+		},
+		inverseJoinColumn: {
+			name: "tagId",
+			referencedColumnName: "id",
+		},
+	})
 	tags?: Tag[];
 }

@@ -22,11 +22,4 @@ export class Tag extends BaseEntity {
 		message: "Color must be a valid hex code.",
 	})
 	color!: string;
-
-	@ManyToMany(
-		() => Task,
-		(task) => task.tags,
-	)
-	@JoinTable()
-	tasks?: Task[];
 }
