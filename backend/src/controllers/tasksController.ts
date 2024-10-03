@@ -1,80 +1,47 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response } from "express";
 import * as tasksServices from "../services/tasksServices";
 
-export const getAllTasks = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const tasks = await tasksServices.getAllTasks();
-    res.json(tasks);
-  } catch (err) {
-    next(err);
-  }
+import * as tasksSchemas from "../schemas/taskSchemas";
+
+export const getAllTasks = async (req: Request, res: Response) => {
+  const tasks = await tasksServices.getAllTasks();
+  res.json(tasks);
 };
 
-export const getTaskById = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const taskId = Number(req.params.id);
-    const task = await tasksServices.getTaskById(taskId);
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
-    res.json(task);
-  } catch (err) {
-    next(err);
+export const getTaskById = async (req: Request, res: Response) => {
+  const taskId = Number(req.params.id);
+  const task = await tasksServices.getTaskById(taskId);
+  if (!task) {
+    return res.status(404).json({ message: "Task not found" });
   }
+  res.json(task);
+  return task;
 };
 
-export const createNewTask = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { title, description, tags } = req.body;
-    const newTask = await tasksServices.createNewTask({
-      title,
-      description,
-      tags: tags || [],
-    });
-    const createdTask = {
-      id: newTask.id,
-      title: newTask.title,
-      description: newTask.description,
-      tags: newTask.tags,
-    };
-
-    res.status(201).json(createdTask);
-  } catch (err) {
-    next(err);
-  }
+export const createNewTask = async (req: Request, res: Response) => {
+  const { title, description, tags } = tasksSchemas.updateTaskSchema.parse(req.body);
+  const newTask = await tasksServices.createNewTask({ title, description, tags });
+  res.status(201).json({ message: "Task has successfully been created:", newTask });
 };
 
-export const deleteTag = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const taskId = Number(req.params.id);
-    const task = await tasksServices.deleteTask(taskId);
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
-    // res.json(task);
-    res.status(204).send("Task has successfully been deleted");
-  } catch (err) {
-    next(err);
+export const deleteTag = async (req: Request, res: Response) => {
+  const taskId = Number(req.params.id);
+  const task = await tasksServices.deleteTask(taskId);
+  if (!task) {
+    return res.status(404).json({ message: "Task not found" });
   }
+  res.status(200).send("Task has successfully been deleted");
 };
 
-export const updateTask = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const taskId = Number(req.params.id);
-    const { title, description, tags } = req.body;
+export const updateTask = async (req: Request, res: Response) => {
+  const taskId = Number(req.params.id);
+  const { title, description, tags } = tasksSchemas.updateTaskSchema.parse(req.body);
 
-    const updatedTask = await tasksServices.updateTask(taskId, {
-      title,
-      description,
-      tags,
-    });
+  const updatedTask = await tasksServices.updateTask(taskId, {
+    title,
+    description,
+    tags,
+  });
 
-    if (!updatedTask) {
-      return res.status(404).json({ message: "Task not found" });
-    }
-
-    res.status(204).json(updatedTask);
-  } catch (err) {
-    next(err);
-  }
+  res.status(200).json({ message: "Task has successfully been updated", updatedTask });
 };
