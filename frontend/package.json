@@ -12,9 +12,11 @@
   "dependencies": {
     "@biomejs/biome": "^1.9.3",
     "@swan-io/chicane": "^2.1.0",
+    "install": "^0.13.0",
     "primereact": "^10.8.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "ts-pattern": "^5.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
