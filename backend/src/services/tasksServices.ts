@@ -47,22 +47,23 @@ export const deleteTask = async (taskId: number): Promise<TaskSQLiteModel | null
 
 export const updateTask = async (
   taskId: number,
-  // data: {
-  //   title?: string;
-  //   description?: string;
-  //   tags?: { id: number }[];
-  // },
   data: UpdateTaskAPIInput,
 ): Promise<TaskSQLiteModel | null> => {
-  const selectedTask = await TaskSQLiteModel.findOne({ where: { id: taskId } });
+  const selectedTask = await TaskSQLiteModel.findOne({
+    where: { id: taskId },
+    relations: ["tags"],
+  });
   if (!selectedTask) return null;
 
-  const updatedTask = await TaskSQLiteModel.save({
-    id: taskId,
-    description: data.description,
-    title: data.title,
-    tags: data.tags,
-  });
-
-  return updatedTask;
+  selectedTask.title = data.title;
+  selectedTask.description = data.description;
+  if (data.tags?.length) {
+    const tags = await TagSQLiteModel.findBy({
+      id: In(data.tags.map((tag) => tag.id)),
+    });
+    selectedTask.tags = tags;
+  } else if (data.tags) {
+    selectedTask.tags = [];
+  }
+  return await TaskSQLiteModel.save(selectedTask);
 };
