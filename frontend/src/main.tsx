@@ -1,10 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import App from "./App.tsx";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+import React from "react";
+
+import ReactDOM from "react-dom/client";
+
+import { PrimeReactProvider } from "primereact/api";
+import "./index.css";
+
+// https://www.codingdeft.com/posts/react-18-typescript-error/
+const rootElement = document.getElementById("root");
+
+const root = ReactDOM.createRoot(rootElement as HTMLElement);
+root.render(
+  <React.StrictMode>
+    <PrimeReactProvider>
+      <App />
+    </PrimeReactProvider>
+  </React.StrictMode>,
+);
