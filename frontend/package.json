@@ -10,9 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@biomejs/biome": "^1.9.3",
+    "primereact": "^10.8.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "@biomejs/biome": "^1.9.3"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
