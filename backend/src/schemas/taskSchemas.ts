@@ -25,3 +25,9 @@ export const updateTaskSchema = z.object({
 });
 
 export type UpdateTaskAPIInput = z.infer<typeof updateTaskSchema>;
+
+export const updateTaskStatusSchema = z.object({
+  isComplete: z.boolean(),
+});
+
+export type UpdateTaskStatusAPIInput = z.infer<typeof updateTaskStatusSchema>;
