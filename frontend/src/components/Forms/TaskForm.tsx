@@ -13,6 +13,8 @@ import { useTagsStore } from "../../store/tagStore";
 import type { Tag } from "../../@types/types";
 import { TagItem } from "../TagItem";
 
+import { addTask } from "../../requests/tasksRequests";
+
 type TaskFormProps = {
 	header: string;
 	visible: boolean;
@@ -47,9 +49,16 @@ export function TaskForm({ header, visible, onHide }: TaskFormProps) {
 		}));
 	};
 
-	const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(formData);
+		try {
+			console.log(formData);
+			await addTask(formData);
+			onHide();
+		} catch (error) {
+			console.error("Error while submitting form:", error);
+			// TODO: display errors on UI
+		}
 	};
 
 	useEffect(() => {

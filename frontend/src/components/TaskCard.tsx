@@ -26,3 +26,18 @@ export function TaskCard({ task }: TaskCardProps) {
 		</>
 	);
 }
+
+type MarkTaskAsCompleteData = {
+	id: number;
+	isComplete: boolean;
+};
+
+export const markTaskAsComplete = async ({
+	id,
+	isComplete,
+}: MarkTaskAsCompleteData) => {
+	const response = await axiosInstance.patch(`/tasks/${id}/mark-complete`, {
+		isComplete,
+	});
+	return response.data;
+};
