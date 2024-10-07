@@ -12,6 +12,7 @@ import { InputText } from "../InputText";
 import type { Task } from "../../@types/types";
 import { useTagsStore } from "../../store/tagStore";
 import { TagItem } from "../TagItem";
+import { updateTask } from "../../requests/tasksRequests";
 
 type TaskFormProps = {
 	header: string;
@@ -49,9 +50,16 @@ export function EditTaskForm({
 		}));
 	};
 
-	const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(formData);
+		try {
+			console.log(formData);
+			await updateTask(formData);
+			onHide();
+		} catch (error) {
+			console.error("Error while submitting form:", error);
+			// TODO: display errors on UI
+		}
 	};
 
 	useEffect(() => {
