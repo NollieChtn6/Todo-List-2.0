@@ -1,14 +1,14 @@
-import { useState, type MouseEvent, type FormEvent } from "react";
+import { useState } from "react";
 
 import { Button } from "primereact/button";
-
-import { ConfirmPopup } from "primereact/confirmpopup"; // To use <ConfirmPopup> tag
+import { ConfirmPopup } from "primereact/confirmpopup";
 
 import type { Task } from "../../@types/types";
 
+import { deleteTask } from "../../requests/tasksRequests";
+
 type DeleteTaskButtonProps = {
 	taskToDelete: Task;
-	// onClick: () => void;
 };
 
 export function DeleteTaskButton({ taskToDelete }: DeleteTaskButtonProps) {
@@ -20,9 +20,14 @@ export function DeleteTaskButton({ taskToDelete }: DeleteTaskButtonProps) {
 		setConfirmModalIsVisible(true);
 	};
 
-	const handleConfirmDelete = () => {
+	const handleConfirmDelete = async () => {
 		console.log("Deleting task:", taskToDelete);
-		setConfirmModalIsVisible(false);
+		try {
+			await deleteTask({ id: taskToDelete.id });
+			console.log(`Task ${taskToDelete.id} deleted successfully.`);
+		} catch (error) {
+			console.error("Error while deleting task:", error);
+		}
 	};
 
 	return (
