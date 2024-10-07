@@ -3,10 +3,10 @@ import { useState } from "react";
 import { InputSwitch } from "primereact/inputswitch";
 
 import type { Task } from "../../@types/types";
+import { markTaskAsComplete } from "../../requests/tasksRequests";
 
 type MarkAsCompleteButtonProps = {
 	taskToUpdate: Task;
-	// onStatusChange: (updatedTask: Task) => void;
 };
 
 export function MarkAsCompleteButton({
@@ -20,12 +20,27 @@ export function MarkAsCompleteButton({
 		isComplete: taskToUpdate.isComplete,
 	});
 
-	const handleInputChange = (field: keyof typeof formData, value: boolean) => {
+	const handleInputChange = async (
+		field: keyof typeof formData,
+		value: boolean,
+	) => {
 		setFormData((prevData) => ({
 			...prevData,
 			[field]: value,
 		}));
-		console.log("Task is complete:", formData.isComplete);
+		try {
+			const updatedTask = await markTaskAsComplete({
+				id: taskToUpdate.id,
+				isComplete: value,
+			});
+			console.log(
+				`Task ${taskToUpdate.id} marked as ${
+					value ? "complete" : "incomplete"
+				}`,
+			);
+		} catch (error) {
+			console.error("Error while changing task status:", error);
+		}
 	};
 
 	return (
