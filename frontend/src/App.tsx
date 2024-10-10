@@ -2,6 +2,8 @@ import { useEffect } from "react";
 
 import { Router } from "./Router";
 import { match } from "ts-pattern";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 import { Homepage } from "./pages/HomePage";
 
 import { useTasksStore } from "./store/taskStore";
@@ -21,14 +23,15 @@ function App() {
 	}, [fetchTasks, fetchTags]);
 
 	return (
-		<>
-			{/* <h1>My todo list</h1> */}
+		<body>
+			<Header />
 			{match(route)
 				.with({ name: "Home" }, () => <Homepage />)
 				.otherwise(() => (
 					<h1 className="m-auto">Oops! Not found!</h1>
 				))}
-		</>
+			<Footer />
+		</body>
 	);
 }
 
