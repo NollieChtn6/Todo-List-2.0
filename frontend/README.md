@@ -1,50 +1,48 @@
-# React + TypeScript + Vite
+# Todo List Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Project Overview
 
-Currently, two official plugins are available:
+Welcome to the Todo List Application! This project was developed over two weeks as a challenge to create both the front-end and back-end of a simple task management app. The focus was on code clarity and structure, with plenty of room for improvement!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- **Task Management**: create, read, update, and delete tasks with ease.
+- **User-Friendly Interface**: navigate through your tasks effortlessly.
+- **State Management**: utilizing Zustand for efficient state management.
+- **Robust Backend**: built with Node.js, Express, and TypeORM to handle your data needs.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🔧 Technologies Used
 
-- Configure the top-level `parserOptions` property like this:
+- **Backend**:
+  - Node.js
+  - Express
+  - TypeORM
+  - SQLite
+- **Frontend**:
+  - React
+  - Vite
+  - Zustand
+  - Chicane.io
+  - CSS (resisting the temptation of Tailwind for now)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🚀 How to Run the Project
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+To get the Todo List Application up and running on your local machine, follow these steps:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+1. Clone the repository.
+2. Open two terminal windows:
+   - Navigate to the frontend directory in one terminal.
+   - Navigate to the backend directory in the other terminal.
+3. Run `npm install` in both terminals to install the necessary dependencies.
+4. For the front-end, start the development server using `npm run dev`.
+5. For the back-end, run the server using `npm run start`.
+6. If necessary, use the provided script to seed the database.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## ✅ To-Do List (Future Improvements)
+
+- [ ] Fix the refresh issue whenever an element is created or deleted.
+- [ ] Add a counter and toolbox.
+- [ ] Validate data format and handle UI errors.
+- [ ] Implement toast notifications.
+- [ ] Tweak minor design elements.
+- [ ] Fix the "Create Tag" feature.
