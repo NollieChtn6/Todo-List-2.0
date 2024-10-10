@@ -1,31 +1,391 @@
+:root {
+	/* Main colors */
+	--global-padding: 1.5rem;
+	--max-width: 1500px;
+	--primary-bg-color: #f2e6ff;
+	--header-bg-color: #4b0082;
+	--footer-bg-color: #6a0dad;
+	--column-bg-color: #e0b3e0;
+	--task-bg-color: #e8d6f0;
+	--task-card-bg-color: #ffffff;
+	--task-card-hover-bg-color: #f3f0ff;
+	--tag-bg-color: white;
+	--font-color: #333;
+	--header-font: "Poppins", sans-serif;
+}
+
+html {
+	font-size: 62.5%;
+	box-sizing: border-box;
+	min-height: 100%;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
 body {
 	margin: 0;
-	display: flex;
-	/* place-items: center; */
-	min-width: 320px;
+	padding: 0;
+	width: 100vw;
 	min-height: 100vh;
-	/* background-color: brown; */
-}
-
-.separator-sm {
-	height: 1.5rem;
-}
-
-.form {
-	padding: 1.5rem 0rem;
+	background-color: var(--primary-bg-color);
+	font-family: Arial, sans-serif;
 	display: flex;
 	flex-direction: column;
-	/* align-items: center; */
+}
+
+.app-container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	height: 100vh;
+}
+
+/* Header styles */
+header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--header-bg-color);
 	width: 100%;
-	background-color: peachpuff;
+	padding: 2rem 0;
+}
+
+.header-title {
+	font-size: 3.5rem;
+	color: white;
+	font-family: var(--header-font);
+	margin: 0;
+}
+
+.header-subtitle {
+	font-size: 1.6rem;
+	color: white;
+}
+
+/* Main styles */
+main {
+	flex: 1;
+	width: 100%;
+	max-width: var(--max-width);
+	margin: auto;
+	padding: var(--global-padding);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Footer */
+footer {
+	background-color: var(--footer-bg-color);
+	width: 100%;
+	text-align: center;
+	padding: 1.5rem 0;
+	margin-top: auto;
+}
+
+footer p {
+	margin: 0;
+	font-size: 1.5rem;
+	color: white;
+}
+
+footer a {
+	color: white;
+	text-decoration: none;
+	font-size: 1.4rem;
+	transition: color 0.2s;
+}
+
+footer a:hover {
+	color: #ffcc00;
+}
+
+@media (max-width: 768px) {
+	.header-title {
+		font-size: 2.5rem;
+	}
+	.header-subtitle {
+		font-size: 1.2rem;
+	}
+	main {
+		padding: 1rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.header-title {
+		font-size: 2rem;
+	}
+	.header-subtitle {
+		font-size: 1rem;
+	}
+}
+
+/* Dashboard */
+.dashboard {
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	gap: 2rem;
+	width: 100%;
+	max-width: var(--max-width);
+	padding: var(--global-padding);
+}
+
+.counter-container,
+.tools-container {
+	background-color: var(--column-bg-color);
+	padding: 1rem;
+	border-radius: 8px;
+}
+
+.tasks-list-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.dashboard-btn-container {
+	display: flex;
+	justify-content: flex-end;
+	padding-bottom: 1.5rem;
+}
+
+.tasks-list {
+	background-color: var(--task-bg-color);
+	padding: 1rem;
+	border-radius: 8px;
+	overflow-y: auto;
+	height: 100%;
+	max-height: 60vh;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.empty-message {
+	text-align: center;
+	font-size: 1.5rem;
+	color: #888;
+}
+
+/* TaskCard */
+.task-card-container {
+	background-color: var(--task-card-bg-color);
+	padding: 1.5rem;
+	border-radius: 8px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	transition: background-color 0.2s ease;
+}
+
+.task-card-container:hover {
+	background-color: var(--task-card-hover-bg-color);
+}
+
+.task-card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.task-title {
+	font-size: 2.2rem;
+	font-weight: 700;
+	color: var(--font-color);
+	margin: 0;
+}
+
+.task-details-title {
+	font-size: 1.6rem;
+	font-weight: 600;
+	color: #555;
+	margin-bottom: 0.5rem;
+}
+
+.task-description {
+	font-size: 1.4rem;
+	color: #666;
+	font-style: italic;
+	line-height: 1.5;
+}
+
+.task-tags-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 1rem;
+}
+
+.task-card-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 0.5rem;
+}
+
+.tag {
+	display: inline-block;
+	padding: 0.4rem 0.8rem;
+	font-size: 1.2rem;
+	background-color: var(--tag-bg-color);
+	color: white;
+	border-radius: 6px;
+	letter-spacing: 0.05rem;
+	transition: background-color 0.3s, transform 0.2s;
+}
+
+.tag:hover {
+	transform: scale(1.03);
+}
+
+.tag + .tag {
+	margin-left: 0.5rem;
+}
+
+/* Global Buttons */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.75rem 1.5rem;
+	font-size: 1.4rem;
+	border-radius: 5px;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+	transform: scale(1.05);
+}
+
+.add-task-btn {
+	background-color: var(--header-bg-color);
+	color: white;
+}
+
+.add-task-btn:hover {
+	background-color: #3c0072;
+}
+
+.edit-btn {
+	background-color: var(--footer-bg-color);
+	color: white;
+}
+
+.edit-btn:hover {
+	background-color: #59099d;
+}
+
+.delete-btn {
+	background-color: #f4a7a7;
+	color: white;
+}
+
+.delete-btn:hover {
+	background-color: #e79595;
+}
+
+.confirm-btn-yes {
+	background-color: var(--header-bg-color);
+	color: white;
+}
+
+.confirm-btn-yes:hover {
+	background-color: #3c0072;
+}
+
+.confirm-btn-no {
+	background-color: #d3d3d3;
+	color: white;
+}
+
+.confirm-btn-no:hover {
+	background-color: #bfbfbf;
+}
+
+@media (max-width: 768px) {
+	.task-card-container {
+		gap: 1rem;
+	}
+
+	.task-title {
+		font-size: 1.6rem;
+	}
+
+	.tag {
+		font-size: 1rem;
+		padding: 0.3rem 0.8rem;
+	}
+}
+
+/* Forms */
+.task-form {
+	font-family: "Arial", sans-serif;
 }
 
 .form-input {
-	display: flex;
 	width: 100%;
+	margin: 0 auto;
+}
+
+.p-multiselect {
+	width: 100% !important;
+}
+
+.btn.confirm-btn {
+	background-color: var(--header-bg-color);
+	color: white;
+}
+
+.btn.add-tag-btn {
+	background-color: #ffd9a3;
+	color: white;
+}
+
+.btn-container {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 1rem;
+}
+
+.separator {
+	height: 2rem;
+}
+
+.float-label {
+	margin-bottom: 1.5rem;
+}
+
+.p-dialog {
+	max-height: 70vh;
+}
+
+.task-form {
+	padding: 1.5rem;
+}
+
+.task-title {
+	margin-bottom: 1rem;
+	font-size: 2.5rem;
+}
+
+.p-dialog-header-close {
+	color: black;
+}
+
+.cancel-btn {
+	background-color: #f44336;
+	color: white;
 }
 
 .confirm-btn {
-	background-color: darkgreen;
-	color: beige;
+	background-color: var(--header-bg-color);
+	color: white;
 }
