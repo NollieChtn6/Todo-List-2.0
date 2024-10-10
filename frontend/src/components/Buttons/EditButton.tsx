@@ -14,8 +14,10 @@ export function EditTaskButton({ taskToEdit }: TaskToEditProps) {
 	return (
 		<>
 			<Button
+				type="button"
 				label="Edit task"
-				className="edit-task-btn"
+				className="btn edit-btn"
+				icon="pi pi-pencil"
 				onClick={() => setFormIsOpen(true)}
 			/>
 

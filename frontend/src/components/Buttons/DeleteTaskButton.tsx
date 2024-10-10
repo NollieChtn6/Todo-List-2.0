@@ -1,10 +1,8 @@
 import { useState } from "react";
-
 import { Button } from "primereact/button";
 import { ConfirmPopup } from "primereact/confirmpopup";
 
 import type { Task } from "../../@types/types";
-
 import { deleteTask } from "../../requests/tasksRequests";
 
 type DeleteTaskButtonProps = {
@@ -32,18 +30,22 @@ export function DeleteTaskButton({ taskToDelete }: DeleteTaskButtonProps) {
 
 	return (
 		<>
-			<Button label="Delete task" onClick={handleClickOnDelete} />
-			{confirmModalIsVisible && (
-				<ConfirmPopup
-					message="Are you sure you want to delete this task?"
-					icon="pi pi-exclamation-triangle"
-					acceptLabel="Yes"
-					rejectLabel="No"
-					visible={confirmModalIsVisible}
-					onHide={() => setConfirmModalIsVisible(false)}
-					accept={handleConfirmDelete}
-				/>
-			)}
+			<Button
+				className="btn delete-btn"
+				label="Delete task"
+				icon="pi pi-trash"
+				onClick={handleClickOnDelete}
+			/>
+			<ConfirmPopup
+				message="Are you sure you want to delete this task?"
+				icon="pi pi-exclamation-triangle"
+				acceptLabel="Yes"
+				rejectLabel="No"
+				visible={confirmModalIsVisible}
+				onHide={() => setConfirmModalIsVisible(false)}
+				accept={handleConfirmDelete}
+				className="delete-popup"
+			/>
 		</>
 	);
 }

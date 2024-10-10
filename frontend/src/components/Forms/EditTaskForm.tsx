@@ -31,7 +31,8 @@ export function EditTaskForm({
 	const [_isVisible, setIsVisible] = useState<boolean>(false);
 	const customStyle: CSSProperties = {
 		width: "50vw",
-		height: "70vh",
+		maxWidth: "400px",
+		height: "60vh",
 	};
 	const tags = useTagsStore((state) => state.tags);
 
@@ -124,7 +125,15 @@ export function EditTaskForm({
 				))}
 				<div className="separator separator-sm" />
 				<AddTagButton />
-				<div className="btn-container">
+
+				<div
+					className="btn-container"
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						marginTop: "20px",
+					}}
+				>
 					<Button className="btn confirm-btn" type="submit">
 						Confirm
 					</Button>

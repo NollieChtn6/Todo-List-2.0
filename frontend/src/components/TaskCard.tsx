@@ -1,4 +1,3 @@
-import { Panel } from "primereact/panel";
 import { TagItem } from "./TagItem";
 import { EditTaskButton } from "./Buttons/EditButton";
 import { DeleteTaskButton } from "./Buttons/DeleteTaskButton";
@@ -12,32 +11,24 @@ type TaskCardProps = {
 
 export function TaskCard({ task }: TaskCardProps) {
 	return (
-		<>
-			<Panel header={task.title} toggleable>
-				{task.isComplete && <p>Task is complete</p>}
-				<p className="m-0">{task.description}</p>
+		<article className="task-card-container">
+			<div className="task-card-header">
+				<h3 className="task-title">{task.title}</h3>
+				<MarkAsCompleteButton taskToUpdate={task} />
+			</div>
+			<div className="task-card-content">
+				<p className="task-details-title">Details:</p>
+				<p className="task-description">{task.description}</p>
+			</div>
+			<div className="task-tags-container">
 				{task.tags.map((tag) => (
-					<TagItem key={tag.id} label={tag.label} color={tag.color} />
+					<TagItem key={tag.id} color={tag.color} label={tag.label} />
 				))}
-			</Panel>
-			<EditTaskButton taskToEdit={task} />
-			<DeleteTaskButton taskToDelete={task} />
-			<MarkAsCompleteButton taskToUpdate={task} />
-		</>
+			</div>
+			<div className="task-card-footer">
+				<EditTaskButton taskToEdit={task} />
+				<DeleteTaskButton taskToDelete={task} />
+			</div>
+		</article>
 	);
 }
-
-type MarkTaskAsCompleteData = {
-	id: number;
-	isComplete: boolean;
-};
-
-export const markTaskAsComplete = async ({
-	id,
-	isComplete,
-}: MarkTaskAsCompleteData) => {
-	const response = await axiosInstance.patch(`/tasks/${id}/mark-complete`, {
-		isComplete,
-	});
-	return response.data;
-};

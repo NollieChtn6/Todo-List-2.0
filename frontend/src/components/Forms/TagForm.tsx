@@ -5,6 +5,7 @@ import { ColorPicker } from "primereact/colorpicker";
 import { Button } from "primereact/button";
 
 import { InputText } from "../InputText";
+import { addTag } from "../../requests/tagsRequests";
 
 type TagFormProps = {
 	header: string;
@@ -22,7 +23,7 @@ export function TagForm({ header, visible, onHide }: TagFormProps) {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
 	const customStyle: CSSProperties = {
 		width: "30vw",
-		height: "50vh",
+		height: "40vh",
 		backgroundColor: "gray",
 	};
 
@@ -38,9 +39,16 @@ export function TagForm({ header, visible, onHide }: TagFormProps) {
 		}));
 	};
 
-	const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(formData);
+		try {
+			console.log(formData);
+			await addTag(formData);
+			onHide();
+		} catch (error) {
+			console.error("Error while submitting form:", error);
+			// TODO: display errors on UI
+		}
 	};
 
 	useEffect(() => {
@@ -73,8 +81,16 @@ export function TagForm({ header, visible, onHide }: TagFormProps) {
 					}}
 				/>
 				<div className="separator separator-sm" />
-				<div className="color-picker-container">
-					<label htmlFor="color-picker">Pick a color!</label>
+				<label
+					htmlFor="color-picker"
+					style={{ display: "block", marginBottom: "8px", fontWeight: "bold" }}
+				>
+					Pick a color!
+				</label>
+				<div
+					className="color-picker-container"
+					style={{ display: "flex", alignItems: "center" }}
+				>
 					<ColorPicker
 						id="color-picker"
 						format="hex"
@@ -84,10 +100,31 @@ export function TagForm({ header, visible, onHide }: TagFormProps) {
 							handleInputChange("color", hexValue);
 						}}
 					/>
-					<p>{formData.color}</p>
+					<p
+						style={{
+							marginLeft: "10px",
+							backgroundColor: "#f0f0f0",
+							border: "1px solid #ccc",
+							padding: "5px",
+							borderRadius: "4px",
+							color: "#999",
+							opacity: 0.7,
+							minWidth: "80px",
+							textAlign: "center",
+						}}
+					>
+						{formData.color}
+					</p>
 				</div>
 
-				<div className="btn-container">
+				<div
+					className="btn-container"
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						marginTop: "20px",
+					}}
+				>
 					<Button className="btn confirm-btn" type="submit">
 						Confirm
 					</Button>

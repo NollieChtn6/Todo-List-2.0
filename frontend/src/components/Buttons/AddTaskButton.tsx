@@ -8,7 +8,12 @@ export function AddTaskButton() {
 
 	return (
 		<>
-			<Button label="Add task" onClick={() => setFormIsOpen(true)} />
+			<Button
+				label="Add task"
+				icon="pi pi-plus"
+				onClick={() => setFormIsOpen(true)}
+				className="btn add-task-btn"
+			/>
 
 			{formIsOpen && (
 				<TaskForm

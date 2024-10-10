@@ -1,5 +1,3 @@
-import { Tag } from "primereact/tag";
-
 type TagItemProps = {
 	label: string;
 	color: string;
@@ -7,8 +5,8 @@ type TagItemProps = {
 
 export function TagItem({ label, color }: TagItemProps) {
 	return (
-		<Tag className="tag-item" style={{ background: color }}>
+		<div className="tag" style={{ backgroundColor: `${color}` }}>
 			{label}
-		</Tag>
+		</div>
 	);
 }

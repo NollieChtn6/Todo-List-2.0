@@ -30,9 +30,11 @@ type NewTaskProps = {
 
 export function TaskForm({ header, visible, onHide }: TaskFormProps) {
 	const [isVisible, setIsVisible] = useState<boolean>(false);
+
 	const customStyle: CSSProperties = {
 		width: "50vw",
-		height: "70vh",
+		maxWidth: "400px",
+		height: "60vh",
 	};
 	const tags = useTagsStore((state) => state.tags);
 
@@ -75,8 +77,16 @@ export function TaskForm({ header, visible, onHide }: TaskFormProps) {
 				setIsVisible(false);
 				onHide();
 			}}
+			footer={
+				<div className="btn-container">
+					<Button className="btn confirm-btn" type="submit">
+						Confirm
+					</Button>
+				</div>
+			}
 		>
 			<form className="form" onSubmit={handleFormSubmit}>
+				<div className="separator separator-sm" />
 				<InputText
 					input={{
 						id: "title-input",
@@ -92,7 +102,7 @@ export function TaskForm({ header, visible, onHide }: TaskFormProps) {
 				/>
 				<div className="separator separator-sm" />
 
-				<FloatLabel>
+				<FloatLabel className="float-label">
 					<InputTextarea
 						id="task-description"
 						value={formData.description}
@@ -112,7 +122,6 @@ export function TaskForm({ header, visible, onHide }: TaskFormProps) {
 					maxSelectedLabels={5}
 					className="w-full md:w-20rem"
 				/>
-				<div className="separator separator-sm" />
 				<p>Selected tags:</p>
 				{formData.tags.map((selectedTag) => (
 					<TagItem
@@ -123,11 +132,6 @@ export function TaskForm({ header, visible, onHide }: TaskFormProps) {
 				))}
 				<div className="separator separator-sm" />
 				<AddTagButton />
-				<div className="btn-container">
-					<Button className="btn confirm-btn" type="submit">
-						Confirm
-					</Button>
-				</div>
 			</form>
 		</Dialog>
 	);

@@ -17,7 +17,7 @@ type InputTextProps = {
 
 export function InputText({ input, label }: InputTextProps) {
 	return (
-		<FloatLabel>
+		<FloatLabel className="float-label">
 			<PrimeInputText
 				id={input.id}
 				value={input.value}

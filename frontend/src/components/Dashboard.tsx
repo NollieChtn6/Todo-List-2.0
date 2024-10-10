@@ -2,20 +2,27 @@ import { useTasksStore } from "../store/taskStore";
 import { AddTaskButton } from "./Buttons/AddTaskButton";
 import { TaskCard } from "./TaskCard";
 
-import { Button } from "primereact/button";
-
 export function Dashboard() {
 	const tasks = useTasksStore((state) => state.tasks);
-	const tasksStackIsEmpty: boolean = tasks.length === 0;
+
 	return (
 		<div className="dashboard">
-			<p>This is my dashboard</p>
-			<AddTaskButton />
-			{tasks.map((task) => (
-				<TaskCard task={task} key={task.id} />
-			))}
+			<div className="counter-container">My counter</div>
 
-			{/* Si pas de tâches dans la liste, afficher un bouton "add Task", sinon 1 taskCard par item. */}
+			<div className="tasks-list-container">
+				<div className="dashboard-btn-container">
+					<AddTaskButton />
+				</div>
+				<div className="tasks-list">
+					{tasks.length === 0 ? (
+						<p className="empty-message">No tasks available</p>
+					) : (
+						tasks.map((task) => <TaskCard task={task} key={task.id} />)
+					)}
+				</div>
+			</div>
+
+			<div className="tools-container">Tools</div>
 		</div>
 	);
 }
