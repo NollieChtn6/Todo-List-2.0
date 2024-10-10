@@ -7,7 +7,7 @@ export type Tag = {
 export type Task = {
 	id: number;
 	title: string;
-	description: string | null;
+	description: string | "";
 	isComplete: boolean;
-	tags: Tag[];
+	tags: Tag[] | [];
 };
