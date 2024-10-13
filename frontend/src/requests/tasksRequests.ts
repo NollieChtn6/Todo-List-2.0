@@ -7,7 +7,11 @@ type AddTaskData = {
 	tags: Tag[] | [];
 };
 
-export const addTask = async ({ title, description, tags }: AddTaskData) => {
+export const addTask = async ({
+	title,
+	description,
+	tags = [],
+}: AddTaskData) => {
 	const response = await axiosInstance.post("/tasks/create", {
 		title,
 		description,
@@ -28,7 +32,7 @@ export const updateTask = async ({
 	id,
 	title,
 	description,
-	tags,
+	tags = [],
 	isComplete,
 }: UpdateTaskData) => {
 	const response = await axiosInstance.patch(`/tasks/${id}/update`, {
